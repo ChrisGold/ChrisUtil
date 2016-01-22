@@ -127,18 +127,20 @@ public class Arrays {
     }
 
     public static String toString(Object[] input){
-        return Arrays.toString(input);
+        return java.util.Arrays.toString(input);
     }
 
     public static String toString(Object[] input, String start, String delimiter, String end){
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         buffer.append(start);
         if(input.length==0) return buffer.append(end).toString();
         buffer.append(input[0].toString());
         if(input.length==1) return buffer.append(end).toString();
         for (int i = 1; i < input.length; i++) {
-
+            buffer.append(delimiter);
+            buffer.append(input[i].toString());
         }
-
+        buffer.append(end);
+        return buffer.toString();
     }
 }

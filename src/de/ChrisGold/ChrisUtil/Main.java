@@ -3,7 +3,8 @@ package de.ChrisGold.ChrisUtil;
 public class Main {
 
     public static void main(String[] args) {
-
+        String[] strings = {"ABC","DEF","GHI"};
+        System.out.println(Arrays.toString(strings, "[< ", " | ", " >]"));
     }
 
     static void generateUnbox(){
