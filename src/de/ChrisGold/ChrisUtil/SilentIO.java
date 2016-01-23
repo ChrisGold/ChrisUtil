@@ -1,15 +1,18 @@
 package de.ChrisGold.ChrisUtil;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * @author Christian Goldapp
  */
-public class IO {
+public class SilentIO {
 
     public static boolean writeToFile(File file, String content) {
         try {
@@ -78,6 +81,26 @@ public class IO {
 
     public static byte[] loadFile(String filename){
         return loadFile(new File(filename));
+    }
+
+    public static String readURL(URL url) {
+        StringBuffer buffer = new StringBuffer();
+        try {
+            Scanner s = new Scanner(url.openStream());
+            while (s.hasNext()) buffer.append(s.next());
+            return buffer.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String readURL(String url) {
+        try {
+            return readURL(new URL(url));
+        } catch (MalformedURLException e) {
+            return null;
+        }
     }
 
 }
