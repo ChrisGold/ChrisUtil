@@ -44,18 +44,24 @@ public class Rational{
      */
     public Rational(BigDecimal val){
         int sign = val.signum();
-        //Work with absolute values from now now
+        int scale = val.scale();
+        //Work with absolute values from now on
         val = val.abs();
-        //Determine if we can get away with a denominator = 1
-        boolean isInteger = val.remainder(BigDecimal.ONE).equals(BigDecimal.ZERO);
-        if(isInteger){
-            this.numerator = val.toBigIntegerExact();
-            this.denominator = BigInteger.ONE;
-            if(sign == -1) numerator = numerator.multiply(BigInteger.valueOf(-1));
-        }
-        else{
 
-        }
+        if (scale == 0) {
+            this.numerator = val.unscaledValue();
+            this.denominator = BigInteger.ONE;
+        } else if (scale < 0) {
+            this.numerator = val.unscaledValue().multiply(BigInteger.TEN.pow(-1 * scale));
+            this.denominator = BigInteger.ONE;
+        } else if (scale > 0) {
+            this.numerator = val.unscaledValue();
+            this.denominator = BigInteger.TEN.pow(scale);
+        } else assert false;
+
+        //Restore the sign.
+        if (sign < 0) numerator = numerator.multiply(BigInteger.valueOf(-1));
+
         reduce();
     }
 
@@ -110,7 +116,11 @@ public class Rational{
 
     @Override
     public String toString() {
-        return String.format("%d / %d", numerator, denominator);
+        return String.format("(%d / %d)", numerator, denominator);
+    }
+
+    public String toString(int radix) {
+        return String.format("(%s / %s)", numerator.toString(radix), denominator.toString(radix));
     }
 
     public String toDecimalString(){
