@@ -43,8 +43,19 @@ public class Rational{
      * @param val A {@code BigDecimal} that represents the value.
      */
     public Rational(BigDecimal val){
-        numerator = val.unscaledValue();
-        denominator = BigInteger.TEN.pow(-1 * val.scale());
+        int sign = val.signum();
+        //Work with absolute values from now now
+        val = val.abs();
+        //Determine if we can get away with a denominator = 1
+        boolean isInteger = val.remainder(BigDecimal.ONE).equals(BigDecimal.ZERO);
+        if(isInteger){
+            this.numerator = val.toBigIntegerExact();
+            this.denominator = BigInteger.ONE;
+            if(sign == -1) numerator = numerator.multiply(BigInteger.valueOf(-1));
+        }
+        else{
+
+        }
         reduce();
     }
 
