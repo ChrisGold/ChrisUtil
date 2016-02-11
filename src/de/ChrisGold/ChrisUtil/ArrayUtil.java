@@ -5,7 +5,8 @@ import java.util.Scanner;
 /**
  * @author Christian Goldapp
  */
-public class Arrays {
+public class ArrayUtil {
+
     public static int[] unbox(Integer[] boxed) {
         int[] unboxed = new int[boxed.length];
         for (int i = 0; i < boxed.length; i++) {
