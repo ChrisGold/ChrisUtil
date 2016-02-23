@@ -84,7 +84,7 @@ public class SilentIO {
     }
 
     public static String readURL(URL url) {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         try {
             Scanner s = new Scanner(url.openStream());
             while (s.hasNext()) buffer.append(s.next());
