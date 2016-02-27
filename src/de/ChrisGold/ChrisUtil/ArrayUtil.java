@@ -1,6 +1,6 @@
 package de.ChrisGold.ChrisUtil;
 
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * @author Christian Goldapp
@@ -143,5 +143,40 @@ public class ArrayUtil {
         }
         buffer.append(end);
         return buffer.toString();
+    }
+
+    public static List<String> permute(String input) {
+        List<Character[]> charsList = new ArrayList<>();
+        permute(charsList, input.length(), box(input.toCharArray()));
+        List<String> strings = new ArrayList<>(charsList.size());
+        for (Character[] objects : charsList) {
+            char[] chars = unbox(objects);
+            strings.add(new String(chars));
+        }
+        return strings;
+    }
+
+    public static <E> List<E[]> permute(E[] arr) {
+        List<E[]> permutations = new ArrayList<>();
+        permute(permutations, arr.length, arr);
+        return permutations;
+    }
+
+    private static <E> void permute(List<E[]> list, int n, E[] arr) {
+        if (n == 1) list.add(Arrays.copyOf(arr, arr.length));
+        else {
+            for (int i = 0; i < n - 1; i++) {
+                permute(list, n - 1, arr);
+                if (n % 2 == 0) swap(arr, i, n - 1);
+                else swap(arr, 0, n - 1);
+            }
+            permute(list, n - 1, arr);
+        }
+    }
+
+    private static <E> void swap(E[] arr, int pos1, int pos2) {
+        E o = arr[pos1];
+        arr[pos1] = arr[pos2];
+        arr[pos2] = o;
     }
 }
