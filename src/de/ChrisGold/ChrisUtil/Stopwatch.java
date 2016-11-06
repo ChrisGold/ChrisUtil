@@ -1,49 +1,50 @@
 package de.ChrisGold.ChrisUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author Christian Goldapp
  * @version 1.0
  */
 public class Stopwatch {
 
-    private long millisTimeAtStart;
-    private long millisTimeAtStop;
+    private long nanosTimeAtStart;
+    private long nanosTimeAtStop;
     private boolean isRunning;
 
     public Stopwatch() {
-        millisTimeAtStart = System.currentTimeMillis();
+        nanosTimeAtStart = System.nanoTime();
         isRunning = true;
     }
 
     public Stopwatch(boolean startRunning) {
         if (startRunning) {
-            millisTimeAtStart = System.currentTimeMillis();
+            nanosTimeAtStart = System.nanoTime();
             isRunning = true;
         } else isRunning = false;
     }
 
     public void start() {
-        millisTimeAtStart = System.currentTimeMillis();
+        nanosTimeAtStart = System.nanoTime();
         isRunning = true;
     }
 
     public long stop() {
-        millisTimeAtStop = System.currentTimeMillis();
+        nanosTimeAtStop = System.nanoTime();
         isRunning = false;
-        return millisTimeAtStop - millisTimeAtStart;
+        return nanosTimeAtStop - nanosTimeAtStart;
     }
 
     public long getElapsedTime() {
         if (isRunning) {
-            long millisSoFar = System.currentTimeMillis();
-            millisSoFar = millisSoFar - millisTimeAtStart;
-            return millisSoFar;
+            long nanosSoFar = System.nanoTime();
+            nanosSoFar = nanosSoFar - nanosTimeAtStart;
+            return nanosSoFar;
         } else {
-            return millisTimeAtStop - millisTimeAtStart;
+            return nanosTimeAtStop - nanosTimeAtStart;
         }
     }
 
+    @Override
+    public String toString() {
+        return String.format("%dms elapsed.", getElapsedTime() / 1000);
+    }
 }
