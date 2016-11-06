@@ -3,7 +3,7 @@ package de.ChrisGold.ChrisUtil.commandlineParser;
 import java.util.*;
 
 /**
- * @author Chris Gold
+ * @author Christian Goldapp
  * @version 1.0
  */
 public class Parser {
