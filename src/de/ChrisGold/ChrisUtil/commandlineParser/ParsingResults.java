@@ -4,12 +4,21 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Chris Gold
+ * @author Christian Goldapp
  * @version 1.0
  */
 public class ParsingResults {
+    /**
+     * All found flags
+     */
     public final List<String> flags;
+    /**
+     * All found options
+     */
     public final Map<String, String> options;
+    /**
+     * All found arguments
+     */
     public final List<String> arguments;
 
     public ParsingResults(List<String> flags, Map<String, String> options, List<String> arguments) {
