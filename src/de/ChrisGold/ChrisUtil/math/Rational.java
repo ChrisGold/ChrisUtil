@@ -173,7 +173,7 @@ public class Rational {
     }
 
     public static Rational valueOf(String s) {
-        if (s.contains("/")) {
+        if (!s.contains("/")) {
             return valueOf(Double.parseDouble(s));
         }
         String[] parts = s.split("/");
